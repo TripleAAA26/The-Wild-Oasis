@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled from "styled-components"
+import {useForm} from "react-hook-form"
 
-import Input from "../../ui/Input";
-import Form from "../../ui/Form";
-import Button from "../../ui/Button";
-import FileInput from "../../ui/FileInput";
-import Textarea from "../../ui/Textarea";
+import Input from "../../ui/Input"
+import Form from "../../ui/Form"
+import Button from "../../ui/Button"
+import FileInput from "../../ui/FileInput"
+import Textarea from "../../ui/Textarea"
 
 const FormRow = styled.div`
   display: grid;
@@ -31,59 +32,76 @@ const FormRow = styled.div`
     justify-content: flex-end;
     gap: 1.2rem;
   }
-`;
+`
 
 const Label = styled.label`
   font-weight: 500;
-`;
+`
 
 const Error = styled.span`
   font-size: 1.4rem;
   color: var(--color-red-700);
-`;
+`
 
 function CreateCabinForm() {
-  return (
-    <Form>
-      <FormRow>
-        <Label htmlFor="name">Cabin name</Label>
-        <Input type="text" id="name" />
-      </FormRow>
 
-      <FormRow>
-        <Label htmlFor="maxCapacity">Maximum capacity</Label>
-        <Input type="number" id="maxCapacity" />
-      </FormRow>
+    const {register, handleSubmit} = useForm()
 
-      <FormRow>
-        <Label htmlFor="regularPrice">Regular price</Label>
-        <Input type="number" id="regularPrice" />
-      </FormRow>
+    function onSubmit(data) {
+        console.log(data)
+    }
 
-      <FormRow>
-        <Label htmlFor="discount">Discount</Label>
-        <Input type="number" id="discount" defaultValue={0} />
-      </FormRow>
+    return (
+        <Form onSubmit={handleSubmit(onSubmit)}>
+            <FormRow>
+                <Label htmlFor="name">Cabin name</Label>
+                <Input type="text" id="name" {...register('name')} />
+            </FormRow>
 
-      <FormRow>
-        <Label htmlFor="description">Description for website</Label>
-        <Textarea type="number" id="description" defaultValue="" />
-      </FormRow>
+            <FormRow>
+                <Label htmlFor="maxCapacity">Maximum capacity</Label>
+                <Input type="number" id="maxCapacity" {...register('maxCapacity')}/>
+            </FormRow>
 
-      <FormRow>
-        <Label htmlFor="image">Cabin photo</Label>
-        <FileInput id="image" accept="image/*" />
-      </FormRow>
+            <FormRow>
+                <Label htmlFor="regularPrice">Regular price</Label>
+                <Input type="number" id="regularPrice" {...register('regularPrice')}/>
+            </FormRow>
 
-      <FormRow>
-        {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
-          Cancel
-        </Button>
-        <Button>Edit cabin</Button>
-      </FormRow>
-    </Form>
-  );
+            <FormRow>
+                <Label htmlFor="discount">Discount</Label>
+                <Input
+                    type="number"
+                    id="discount"
+                    defaultValue={0}
+                    {...register('discount')}
+                />
+            </FormRow>
+
+            <FormRow>
+                <Label htmlFor="description">Description for website</Label>
+                <Textarea
+                    type="number"
+                    id="description"
+                    defaultValue=""
+                    {...register('description')}
+                />
+            </FormRow>
+
+            <FormRow>
+                <Label htmlFor="image">Cabin photo</Label>
+                <FileInput id="image" accept="image/*"/>
+            </FormRow>
+
+            <FormRow>
+                {/* type is an HTML attribute! */}
+                <Button variation="secondary" type="reset">
+                    Cancel
+                </Button>
+                <Button>Edit cabin</Button>
+            </FormRow>
+        </Form>
+    )
 }
 
-export default CreateCabinForm;
+export default CreateCabinForm
