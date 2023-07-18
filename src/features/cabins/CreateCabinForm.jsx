@@ -8,12 +8,12 @@ import Textarea from "../../ui/Textarea"
 import FormRow from "../../ui/FormRow.jsx"
 
 import {useCreateCabin} from "./useCreateCabin.js"
-import {useEditCabin} from "./useEditCabin.js"
+import {useUpdateCabin} from "./useUpdateCabin.js"
 
 function CreateCabinForm({cabinToEdit = {}}) {
     const {isCreating, createCabin} = useCreateCabin()
-    const {isEditing, editCabin} = useEditCabin()
-    const isWorking = isCreating || isEditing
+    const {isUpdating, updateCabin} = useUpdateCabin()
+    const isWorking = isCreating || isUpdating
 
     const {id: editId, ...editValues} = cabinToEdit
     const isEditSession = Boolean(editId)
@@ -35,7 +35,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
         const image = typeof data.image === 'string' ? data.image : data.image[0]
 
         if(isEditSession)
-            editCabin(
+            updateCabin(
                 {newCabinData: {...data, image}, id: editId},
                 {onSuccess: (data) => reset()}
             )
