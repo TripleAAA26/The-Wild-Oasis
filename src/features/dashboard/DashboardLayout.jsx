@@ -4,6 +4,7 @@ import Spinner from "../../ui/Spinner.jsx"
 import {useRecentStays} from "./useRecentStays.js"
 import Stats from "./Stats.jsx"
 import {useCabins} from "../cabins/useCabins.js"
+import SalesChart from "./SalesChart.jsx"
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -15,7 +16,11 @@ const StyledDashboardLayout = styled.div`
 
 function DashboardLayout() {
     const {bookings, isLoading: isLoading1} = useRecentBookings()
-    const {stays, isLoading: isLoading2, confirmedStays, numDays
+    const {
+        stays,
+        isLoading: isLoading2,
+        confirmedStays,
+        numDays
     } = useRecentStays()
     const {cabins, isLoading: isLoading3} = useCabins()
 
@@ -31,7 +36,7 @@ function DashboardLayout() {
             />
             <div>Today activity</div>
             <div>Chart stay duration</div>
-            <div>Chart Sales</div>
+            <SalesChart bookings={bookings} numDays={numDays}/>
         </StyledDashboardLayout>
     )
 }
